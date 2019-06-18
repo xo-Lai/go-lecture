@@ -1,77 +1,26 @@
-package main
+package tree
 
 import "fmt"
 
-type treeNode struct {
-	value       int
-	left, right *treeNode
+type Node struct {
+	Value       int
+	Left, Right *Node
 }
 
-// 结构体的方法定义，（node treeNode）是接受者
-func (node treeNode) print() {
-	fmt.Println(node.value)
+// 结构体的方法定义，（node Node）是接受者
+func (node Node) Print() {
+	fmt.Println(node.Value)
 }
 
-func (node *treeNode) setValue(value int) {
+func (node *Node) SetValue(value int) {
 	if node == nil {
-		fmt.Println("Setting value to nil node . Ignored")
+		fmt.Println("Setting Value to nil node . Ignored")
 		return
 	}
-	node.value = value
+	node.Value = value
 }
 
 // 工厂函数，来构造函数,注意返回局部变量的地址
-func createNode(value int) *treeNode {
-	return &treeNode{value: value}
-}
-
-func (node *treeNode) traverse() {
-	if node == nil {
-		return
-	}
-	node.left.traverse()
-	node.print()
-	node.right.traverse()
-}
-
-func main() {
-	var root treeNode
-
-	root = treeNode{value: 3}
-	root.left = &treeNode{}
-	root.right = &treeNode{5, nil, nil}
-	root.right.left = new(treeNode)
-	root.left.right = createNode(2)
-
-	root.right.left.setValue(4)
-
-	root.traverse() //0 2 3 4 5
-	//root.right.left.print()
-	//
-	//root.setValue(100)
-	//root.print()
-
-
-
-	// 复制变量
-	//pRoot:=&root
-	//pRoot.print()
-	//pRoot.setValue(200)
-	//pRoot.print()
-	//root.print()
-
-	// 赋值nil 值
-	//var pRoot *treeNode
-	//pRoot.setValue(200)
-	//pRoot = &root
-	//pRoot.setValue(300)
-	//pRoot.print()
-
-	//nodes := []treeNode{
-	//	{value: 3},
-	//	{},
-	//	{6, nil, nil},
-	//}
-	//fmt.Println(nodes)
-
+func CreateNode(value int) *Node {
+	return &Node{Value: value}
 }
